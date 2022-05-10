@@ -10,7 +10,7 @@ public class Shoe {
     private int cutCardIndex = 0;
     private int topCardIndex;
 
-    Shoe(int numDecks) {
+    public Shoe(int numDecks) {
         this.numDecks = numDecks;
         createShoe();
         shuffle();
@@ -55,7 +55,7 @@ public class Shoe {
         return;
     }
 
-    public Integer getTopCard(){
+    private Integer getTopCard(){
         int card = shoe.get(topCardIndex);
         topCardIndex--;
 
@@ -67,11 +67,16 @@ public class Shoe {
         return card;
     }
 
+    public void hit(Hand h){
+        h.addCard(getTopCard());
+    }
+
     public void debugInfo() {
-        shuffle();
         System.out.println(shoe);
         System.out.println("CC is: " + cutCardIndex);
         System.out.println("size is: " + shoe.size());
+
+
         return;
     }
 }

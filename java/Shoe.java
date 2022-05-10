@@ -8,10 +8,12 @@ public class Shoe {
 
     private ArrayList<Integer> shoe = new ArrayList<Integer>();
     private int cutCardIndex = 0;
+    private int topCardIndex;
 
     Shoe(int numDecks) {
         this.numDecks = numDecks;
         createShoe();
+        shuffle();
     }
 
     private ArrayList<Integer> createDeck() {
@@ -38,6 +40,7 @@ public class Shoe {
     public void shuffle() {
         Collections.shuffle(shoe);
         placeCutCard();
+        topCardIndex = shoe.size() - 1;
 
         return;
     }
@@ -52,8 +55,18 @@ public class Shoe {
         return;
     }
 
+    public Integer getTopCard(){
+        int card = shoe.get(topCardIndex);
+        topCardIndex--;
 
-    
+        //make sure top card index is valid
+        if (topCardIndex < 0){
+            System.out.println("top card index is out of bounds, deck is empty");
+        }
+
+        return card;
+    }
+
     public void debugInfo() {
         shuffle();
         System.out.println(shoe);

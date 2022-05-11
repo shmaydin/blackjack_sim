@@ -1,5 +1,5 @@
 package src;
-public class test {
+public class test_main {
     public static void main(String args[]) {
         Shoe s1 = new Shoe(6);
         s1.debugInfo();

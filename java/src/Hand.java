@@ -88,11 +88,7 @@ public class Hand {
         return bjTotal;
     }
 
-    // public void debugInfo(Shoe testShoe) {
-    // for (int i = 0; i < 20; i++) {
-    // hit(testShoe);
-    // }
-    // System.out.println(cards);
-    // return;
-    // }
+    public ArrayList<Integer> getCardsFT(){
+        return cards;
+    }
 }

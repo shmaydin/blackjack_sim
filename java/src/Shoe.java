@@ -29,7 +29,7 @@ public class Shoe {
         return deck;
     }
 
-    public void createShoe() {
+    private void createShoe() {
         ArrayList<Integer> deck = createDeck();
 
         for (int i = 0; i < numDecks; i++) {
@@ -38,7 +38,7 @@ public class Shoe {
         return;
     }
 
-    public void shuffle() {
+    private void shuffle() {
         Collections.shuffle(shoe);
         placeCutCard();
         topCardIndex = shoe.size() - 1;
@@ -68,8 +68,8 @@ public class Shoe {
         return card;
     }
 
-    public void hit(Hand h){
-        h.addCard(getTopCard());
+    public void hit(Hand hand){
+        hand.addCard(getTopCard());
     }
 
     public void debugInfo() {
@@ -80,4 +80,13 @@ public class Shoe {
 
         return;
     }
+
+    public ArrayList<Integer> getCardsInShoeFT(){
+        return shoe;
+    }
+
+    public int getTopCardFT() {
+        return topCardIndex;
+    }
 }
+    

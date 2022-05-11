@@ -2,8 +2,8 @@ package src;
 import java.util.ArrayList;
 
 public class Hand {
-    ArrayList<Integer> cards = new ArrayList<>();
-    boolean isDealer;
+    private ArrayList<Integer> cards = new ArrayList<>();
+    private boolean isDealer;
 
     // constructor if no arguments given
     public Hand() {
@@ -50,7 +50,7 @@ public class Hand {
                 cards.get(0) == cards.get(1)) {
 
             // handValue is list of length 2 where both values are equivalent
-            handValue = new ArrayList<>(cards);
+            handValue.add(cards.get(0));
         }
 
         // Atleast one ace in the hand

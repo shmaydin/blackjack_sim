@@ -50,7 +50,7 @@ public class Hand {
                 cards.get(0) == cards.get(1)) {
 
             // handValue is list of length 2 where both values are equivalent
-            handValue.add(cards.get(0));
+            handValue = cards;
         }
 
         // Atleast one ace in the hand
@@ -90,5 +90,12 @@ public class Hand {
 
     public ArrayList<Integer> getCardsFT(){
         return cards;
+    }
+
+    public void removeCardFT(){
+        if (cards.size()  > 0) {
+            cards.remove(cards.size() - 1);
+        }
+        return;
     }
 }

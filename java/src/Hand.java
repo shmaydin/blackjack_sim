@@ -1,5 +1,7 @@
 package src;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class Hand {
     private ArrayList<Integer> cards = new ArrayList<>();
@@ -16,7 +18,7 @@ public class Hand {
         isDealer = d;
     }
 
-    //adds given card to the hand
+    // adds given card to the hand
     public void addCard(int c) {
         cards.add(c);
     }
@@ -56,12 +58,15 @@ public class Hand {
         // Atleast one ace in the hand
         else if (hasAce) {
             int totalValue = getBlackJackValue();
-            //-1 because were removing the value of one ace
-            totalValue -= 1;
 
-            // handValue[0] == 1, handValue[1] == sum of cards other than one ace
-            handValue.add(1);
-            handValue.add(totalValue);
+            // if sum of hand and ace is more than 11 we use hard totals table
+            if (totalValue > 11) {
+                handValue.add(totalValue);
+            } else { //we use soft totals
+                // handValue[0] == 1, handValue[1] == sum of cards other than one ace
+                handValue.add(1);
+                handValue.add(totalValue - 1);
+            }
         }
         // normal hand -> no ace and not splitable
         else {
@@ -88,12 +93,12 @@ public class Hand {
         return bjTotal;
     }
 
-    public ArrayList<Integer> getCardsFT(){
+    public ArrayList<Integer> getCardsFT() {
         return cards;
     }
 
-    public void removeCardFT(){
-        if (cards.size()  > 0) {
+    public void removeCardFT() {
+        if (cards.size() > 0) {
             cards.remove(cards.size() - 1);
         }
         return;

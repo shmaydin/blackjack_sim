@@ -55,14 +55,14 @@ public class Hand_Test {
         assertEquals(List.of(1, 8), h.getBasicStratagyHand());
 
         h.addCard(11); // after hand is [1,3,5,11]
-        assertEquals(List.of(1, 18), h.getBasicStratagyHand());
+        assertEquals(List.of(19), h.getBasicStratagyHand());
 
         h = new Hand();
 
         h.addCard(4);
         h.addCard(10);
         h.addCard(1);
-        assertEquals(List.of(1, 14), h.getBasicStratagyHand());
+        assertEquals(List.of(15), h.getBasicStratagyHand());
 
         return;
     }
@@ -86,7 +86,14 @@ public class Hand_Test {
         h.addCard(1);
         h.addCard(13);
         h.addCard(1);
-        assertEquals(List.of(1, 13), h.getBasicStratagyHand());
+        assertEquals(List.of(14), h.getBasicStratagyHand());
+
+        h = new Hand();
+
+        h.addCard(1);
+        h.addCard(10);
+        assertEquals(List.of(1, 10), h.getBasicStratagyHand());
+
     }
 
     //standard hand - no aces and not splitable

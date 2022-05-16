@@ -1,7 +1,6 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 //TODO: MUST fix table values. find correct numbers from a mathmatician or something
 // Ive been finding inconsistant data on optimal stratagy

@@ -1,21 +1,26 @@
 package src;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Hand {
     private ArrayList<Integer> cards = new ArrayList<>();
     private boolean isDealer;
+    private boolean doubleAllowed; // doube is only allowed on first turn, not after hand has been hit
 
     // constructor if no arguments given
     public Hand() {
         // default to not a dealer
         isDealer = false;
+        doubleAllowed = true;
     }
 
     // contructor if one argument given
     public Hand(boolean d) {
         isDealer = d;
+        doubleAllowed = true;
     }
 
     // adds given card to the hand
@@ -25,7 +30,7 @@ public class Hand {
 
     /*
      * - If the player has a standard hand, method will return
-     * its sum as a list of length 1 (EX: if cards = [5,12,3] -> return 20)
+     * its sum as a list of length 1 (EX: if cards = [5,12,3] -> return [20])
      * - If cards contains at least one ace, method will return a list of length two
      * which
      * contains [1, sum of values other than ace]. Note that additional aces are
@@ -52,7 +57,7 @@ public class Hand {
                 cards.get(0) == cards.get(1)) {
 
             // handValue is list of length 2 where both values are equivalent
-            handValue = cards;
+            handValue = new ArrayList<>(cards);
         }
 
         // Atleast one ace in the hand
@@ -62,7 +67,7 @@ public class Hand {
             // if sum of hand and ace is more than 11 we use hard totals table
             if (totalValue > 11) {
                 handValue.add(totalValue);
-            } else { //we use soft totals
+            } else { // we use soft totals
                 // handValue[0] == 1, handValue[1] == sum of cards other than one ace
                 handValue.add(1);
                 handValue.add(totalValue - 1);
@@ -74,6 +79,23 @@ public class Hand {
             handValue.add(getBlackJackValue());
         }
         return handValue;
+    }
+
+    /*
+     * processes the dealers hand (mainly aces) so that BS class can make a hit or
+     * stand decision
+     */
+    public ArrayList<Integer> getDealerValue() {
+        boolean hasAce = cards.contains(1);
+        int handValue = getBlackJackValue();
+
+        // not an ace in the hand, just take total sum || with ace but ace is always 1
+        // otherwise bust
+        if (!hasAce || handValue > 11) {
+            return new ArrayList<Integer>(handValue);
+        } else {
+            return new ArrayList<Integer>(Arrays.asList(1, handValue - 1));
+        }
     }
 
     /*
@@ -91,6 +113,10 @@ public class Hand {
             }
         }
         return bjTotal;
+    }
+
+    public void invalidateDouble() {
+        doubleAllowed = false;
     }
 
     public ArrayList<Integer> getCardsFT() {

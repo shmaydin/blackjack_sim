@@ -64,7 +64,7 @@ public class BasicStratagy {
         int playerTableIndex;
 
         // use split table
-        if (useSplitTable(playerHand)) {
+        if (handIsSplitable(playerHand)) {
             // get row for table
             playerTableIndex = playerHand.get(0) - 1;
             // control for index out of bounds (convert J,Q,K to a 10)
@@ -73,7 +73,7 @@ public class BasicStratagy {
             }
             return PLAYER_PAIR[playerTableIndex][dealerUpCard];
 
-        } else if (useSoftTotalTable(playerHand)) {
+        } else if (handIsSoftTotal(playerHand)) {
             // get row for table
             playerTableIndex = playerHand.get(1) - 2;
             // NOTE: playerHand[1] should never be more than 9
@@ -90,11 +90,49 @@ public class BasicStratagy {
 
             return PLAYER_HARD_TOTAL[playerTableIndex][dealerUpCard];
         }
+    }
+
+    /*
+     * Input: Processed dealer hand - if no ace in hand should be length 1 which is
+     * sum
+     * of cards in hand. if there is an ace [0] == 1 and [1] == sum of remaining
+     * cards
+     * 
+     * Output: String of length 1 - should be either "H" or "S" for hit or stand
+     * 
+     * Function: Returns hit or stand decision based on rules for the dealer
+     */
+    public static String getDealerDecision(ArrayList<Integer> dealerHand) {
+
+        int dealerHandValue = 0;
+        boolean soft = false;
+        // dealer has an ace in hand
+        if (dealerHand.size() == 2) {
+            // // figure out if ace should be treated as a 1 or 11
+            if (dealerHand.get(1) + 11 <= 21) {
+                dealerHandValue = dealerHand.get(1) + 11;
+                soft = true;
+            } else {
+                dealerHandValue = dealerHand.get(1) + 1;
+            }
+        }
+        // dealer does not have an ace
+        else {
+            dealerHandValue = dealerHand.get(0);
+        }
+        // hit vs stand logic based of value... dealer hits soft 17
+        if (soft && dealerHandValue == 17) {
+            return "H";
+        } else if (dealerHandValue < 17) {
+            return "H";
+        } else {
+            return "S";
+        }
 
     }
 
     // given processed player hand, check if we should use the split table
-    private static boolean useSplitTable(ArrayList<Integer> h) {
+    private static boolean handIsSplitable(ArrayList<Integer> h) {
         if (h.size() == 2 && h.get(0) == h.get(1)) {
             return true;
         }
@@ -103,7 +141,7 @@ public class BasicStratagy {
 
     // given processed player hand, check if we should use the soft total table (has
     // ace)
-    private static boolean useSoftTotalTable(ArrayList<Integer> h) {
+    private static boolean handIsSoftTotal(ArrayList<Integer> h) {
         if (h.size() == 2 && h.get(0) == 1) {
             return true;
         }

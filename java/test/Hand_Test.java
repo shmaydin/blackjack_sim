@@ -6,6 +6,7 @@ import src.Hand;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Hand_Test {
@@ -121,6 +122,46 @@ public class Hand_Test {
         h.addCard(3);
         h.addCard(8);
         assertEquals(List.of(21), h.getBasicStratagyHand());
+
+    }
+
+    @Test
+    public void dealerHandValueTest() {
+        Hand h = new Hand();
+        h.addCard(1);
+        h.addCard(1);
+        assertEquals(Arrays.asList(1,1), h.getDealerValue());
+
+        h.addCard(1);
+        assertEquals(Arrays.asList(1,2), h.getDealerValue());
+
+        h.addCard(12);
+        assertEquals(Arrays.asList(13), h.getDealerValue());
+
+        h = new Hand();
+        h.addCard(1);
+        h.addCard(7);
+        h.addCard(2);
+        assertEquals(Arrays.asList(1,9), h.getDealerValue());
+
+        h = new Hand();
+        h.addCard(5);
+        assertEquals(Arrays.asList(5), h.getDealerValue());
+
+        h.addCard(13);
+        assertEquals(Arrays.asList(15), h.getDealerValue());
+
+        h.addCard(3);
+        assertEquals(Arrays.asList(18), h.getDealerValue());
+
+        h.addCard(1);
+        assertEquals(Arrays.asList(19), h.getDealerValue());
+
+        h.addCard(10);
+        assertEquals(Arrays.asList(29), h.getDealerValue());
+    
+        
+        return;
 
     }
 }

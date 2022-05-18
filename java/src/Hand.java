@@ -1,9 +1,6 @@
 package src;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Hand {
     private ArrayList<Integer> cards = new ArrayList<>();
@@ -88,14 +85,19 @@ public class Hand {
     public ArrayList<Integer> getDealerValue() {
         boolean hasAce = cards.contains(1);
         int handValue = getBlackJackValue();
+        ArrayList<Integer> output = new ArrayList<>();
 
         // not an ace in the hand, just take total sum || with ace but ace is always 1
         // otherwise bust
         if (!hasAce || handValue > 11) {
-            return new ArrayList<Integer>(handValue);
+            output.add(handValue);
+            return output;
         } else {
-            return new ArrayList<Integer>(Arrays.asList(1, handValue - 1));
+            output.add(1);
+            output.add(handValue - 1);
+            return output;
         }
+
     }
 
     /*

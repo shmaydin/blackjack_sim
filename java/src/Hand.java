@@ -101,6 +101,56 @@ public class Hand {
     }
 
     /*
+     * Input: Ran on the hand object that it is called on
+     * 
+     * Output: true or false based on if hand has gone over 21 or not
+     * 
+     * Function: Calculates weather the hand in question has gone over 21.
+     * Aces can always be counted as 1 because we are checking for bust.
+     */
+    public boolean isBusted() {
+        int hVal = getBlackJackValue();
+
+        // busted if value is over 21, else not busted
+        if (hVal > 21) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+     * Input: is ran on a hand object
+     * Output: True for blackjack, false for not blackjack
+     * Function: This does not control for busted hands, the boolean is soley based
+     * on if the hand value == 21 or not. must consider aces as hard or soft.
+     */
+    public boolean isTwentyOne() {
+        boolean hasAce = false;
+        int hVal = getBlackJackValue();
+
+        // set ace flag if the hand has atleast one ace
+        if (cards.contains(1)) {
+            hasAce = true;
+        }
+
+        // if theres not an ace return if hVal == 21
+        if (!hasAce) {
+            return hVal == 21;
+        }
+        // if ace is 1 and hand is 21
+        else if (hVal == 21) {
+            return true;
+        }
+        // check if making the ace == 11 yeilds blackjack -> only add 10 because hVal
+        // has hand as ace == 1
+        else {
+            return hVal + 10 == 21;
+        }
+
+    }
+
+    /*
      * returns the value of the hand with aces counted as one and face cards counted
      * as 10
      */

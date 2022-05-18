@@ -93,9 +93,8 @@ public class BasicStratagy {
 
     /*
      * Input: Processed dealer hand - if no ace in hand should be length 1 which is
-     * sum
-     * of cards in hand. if there is an ace [0] == 1 and [1] == sum of remaining
-     * cards
+     * sum of cards in hand. if there is an ace [0] == 1 and [1] == sum of remaining
+     * cards. Should never recieve an ace with [1] > 10
      * 
      * Output: String of length 1 - should be either "H" or "S" for hit or stand
      * 

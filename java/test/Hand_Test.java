@@ -22,11 +22,11 @@ public class Hand_Test {
         h.addCard(4);
 
         assertEquals(2, h.getBasicStratagyHand().size());
-        assertEquals(List.of(4,4), h.getBasicStratagyHand());
+        assertEquals(List.of(4, 4), h.getBasicStratagyHand());
 
-        //make sure we dont split a hand of size 3
+        // make sure we dont split a hand of size 3
         h.addCard(5);
-        assertNotEquals(List.of(4,4), h.getBasicStratagyHand());
+        assertNotEquals(List.of(4, 4), h.getBasicStratagyHand());
 
         return;
     }
@@ -73,7 +73,7 @@ public class Hand_Test {
     public void basicStratagyMoreThanOneAce() {
         Hand h = new Hand();
 
-        //hand is two aces, check if we want to split it
+        // hand is two aces, check if we want to split it
         h.addCard(1);
         h.addCard(1);
         assertEquals(List.of(1, 1), h.getBasicStratagyHand());
@@ -97,9 +97,9 @@ public class Hand_Test {
 
     }
 
-    //standard hand - no aces and not splitable
+    // standard hand - no aces and not splitable
     @Test
-    public void basicStratagyStandardHand(){
+    public void basicStratagyStandardHand() {
         Hand h = new Hand();
 
         h.addCard(2);
@@ -130,10 +130,10 @@ public class Hand_Test {
         Hand h = new Hand();
         h.addCard(1);
         h.addCard(1);
-        assertEquals(Arrays.asList(1,1), h.getDealerValue());
+        assertEquals(Arrays.asList(1, 1), h.getDealerValue());
 
         h.addCard(1);
-        assertEquals(Arrays.asList(1,2), h.getDealerValue());
+        assertEquals(Arrays.asList(1, 2), h.getDealerValue());
 
         h.addCard(12);
         assertEquals(Arrays.asList(13), h.getDealerValue());
@@ -142,7 +142,7 @@ public class Hand_Test {
         h.addCard(1);
         h.addCard(7);
         h.addCard(2);
-        assertEquals(Arrays.asList(1,9), h.getDealerValue());
+        assertEquals(Arrays.asList(1, 9), h.getDealerValue());
 
         h = new Hand();
         h.addCard(5);
@@ -159,9 +159,56 @@ public class Hand_Test {
 
         h.addCard(10);
         assertEquals(Arrays.asList(29), h.getDealerValue());
-    
-        
+
         return;
 
     }
+
+    // test for is blackjack if hand has an ace
+    @Test
+    public void checkHandWithAceFor21() {
+        Hand h = new Hand();
+
+        h.addCard(1);
+        for (int i = 1; i < 10; i++) {
+            h.addCard(i);
+            assertEquals(false, h.isTwentyOne());
+            h.removeCardFT();
+        }
+
+        h.addCard(10);
+        assertEquals(true, h.isTwentyOne());
+        h.removeCardFT();
+
+        h.addCard(11);
+        assertEquals(true, h.isTwentyOne());
+        h.removeCardFT();
+
+        h.addCard(12);
+        assertEquals(true, h.isTwentyOne());
+        h.removeCardFT();
+
+        h.addCard(13);
+        assertEquals(true, h.isTwentyOne());
+        h.removeCardFT();
+
+        h.addCard(7);
+        h.addCard(3);
+        assertEquals(true, h.isTwentyOne());
+    }
+
+    // chekcs hand without ace for BJ
+    @Test
+    public void checkHandWithoutAceFor21() {
+        Hand h = new Hand();
+
+        h.addCard(2);
+        h.addCard(12);
+        assertEquals(false, h.isTwentyOne());
+
+        h.addCard(9);
+        assertEquals(true, h.isTwentyOne());
+
+    }
+
 }

@@ -1,18 +1,19 @@
 package src;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Shoe {
 
-    private int numDecks = 1;
+    private int numDecks;
 
     private ArrayList<Integer> shoe = new ArrayList<Integer>();
     private int cutCardIndex = 0;
     private int topCardIndex;
 
-    public Shoe(int numDecks) {
-        this.numDecks = numDecks;
+    public Shoe(int cntDecks) {
+        this.numDecks = cntDecks;
         createShoe();
         shuffle();
     }
@@ -56,32 +57,30 @@ public class Shoe {
         return;
     }
 
-    private Integer getTopCard(){
+    private Integer getTopCard() {
         int card = shoe.get(topCardIndex);
         topCardIndex--;
 
-        //make sure top card index is valid
-        if (topCardIndex < 0){
+        // make sure top card index is valid
+        if (topCardIndex < 0) {
             System.out.println("top card index is out of bounds, deck is empty");
         }
 
         return card;
     }
 
-    public void hit(Hand hand){
+    public void hit(Hand hand) {
         hand.addCard(getTopCard());
     }
 
-    public void debugInfo() {
-        System.out.println(shoe);
-        System.out.println("CC is: " + cutCardIndex);
-        System.out.println("size is: " + shoe.size());
-
-
-        return;
+    public boolean passedCutCard() {
+        if (topCardIndex > cutCardIndex) {
+            return false;
+        }
+        return true;
     }
 
-    public ArrayList<Integer> getCardsInShoeFT(){
+    public ArrayList<Integer> getCardsInShoeFT() {
         return shoe;
     }
 
@@ -89,4 +88,3 @@ public class Shoe {
         return topCardIndex;
     }
 }
-    

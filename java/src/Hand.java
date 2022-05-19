@@ -6,18 +6,30 @@ public class Hand {
     private ArrayList<Integer> cards = new ArrayList<>();
     private boolean isDealer;
     private boolean doubleAllowed; // doube is only allowed on first turn, not after hand has been hit
+    private boolean hasBlackJack;
+    private boolean isBusted;
+    private boolean isStanding;
+    private Outcomes outcome;
 
     // constructor if no arguments given
     public Hand() {
         // default to not a dealer
         isDealer = false;
         doubleAllowed = true;
+        hasBlackJack = false;
+        isBusted = false;
+        isStanding = false;
+        outcome = Outcomes.PLAYING;
     }
 
     // contructor if one argument given
     public Hand(boolean d) {
         isDealer = d;
         doubleAllowed = true;
+        hasBlackJack = false;
+        isBusted = false;
+        isStanding = false;
+        outcome = Outcomes.PLAYING;
     }
 
     // adds given card to the hand
@@ -171,8 +183,58 @@ public class Hand {
         doubleAllowed = false;
     }
 
-    public ArrayList<Integer> getCardsFT() {
+    // if hand is either busted or standing return true, else false
+    public boolean isHandDone() {
+        if (isBusted || isStanding) {
+            return true;
+        }
+        return false;
+    }
+
+    public void setHandBusted() {
+        isBusted = true;
+    }
+
+    public void setIsStanding() {
+        isStanding = true;
+    }
+
+    public void setIsDealer(boolean d) {
+        isDealer = d;
+    }
+
+    public void setHasBlackJack(boolean bj) {
+        hasBlackJack = bj;
+    }
+
+    public boolean getHasBlackJack() {
+        return hasBlackJack;
+    }
+
+    public boolean getIsHandBusted() {
+        if (isBusted) {
+            return true;
+        }
+        return false;
+    }
+
+    //dealer up card is first card in dealers hand
+    public int getDealerUpCard() {
+        return cards.get(0);
+    }
+
+    public ArrayList<Integer> getCards() {
         return cards;
+    }
+
+    //setter: set the outcome of the hand
+    public void setOutcome(Outcomes oc) {
+        outcome = oc;
+    }
+    
+    //getter: get outcome of the hand
+    public Outcomes getOutcome() {
+        return outcome;
     }
 
     public void removeCardFT() {

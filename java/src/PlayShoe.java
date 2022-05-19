@@ -2,6 +2,8 @@ package src;
 
 import java.util.ArrayList;
 
+
+//TODO: class might be redundant after creating table obejct
 public class PlayShoe {
 
     /*
@@ -26,14 +28,40 @@ public class PlayShoe {
         ArrayList<Hand> hands = initializeBlackJackTable(numPlayers);
 
         // (7) keep playing hands until we have passed the cut card
-        while (!shoe.passedCutCard())
+        while (!shoe.passedCutCard()) {
             // (2) give each player and dealer their first two cards to start the hand
             dealFirstTwoCards(shoe, hands);
 
-            // (3) check which (if any) hands have balckjack
-            setBlackJackInstanceBools(hands);
-            //TODO: figure out how remove BJ havers and what do do if dealer has BJ with losers and push
+            /*
+             * Create array of string which stores outcome of each hand <WIN, LOSE, PUSH>
+             * - This can be passed to output data class (print to CSV) to record winners
+             * and losers of hand
+             * Note: Dealer win or lose in relative, so index [0] will always be Null
+             */
+            Outcomes[] outcomes = new Outcomes[hands.size()];
 
+            // (3) check which (if any) hands have BJ
+            setBlackJackInstanceBools(hands);
+
+            // (3) if dealer has BJ, hands with it push, others lose
+            // else: dealer doesnt have BJ, all hands with win - rest play on
+            for (int i = 1; i < hands.size(); i++) {
+
+                if (hands.get(0).getHasBlackJack()) { // dealer has BJ
+                    if (hands.get(i).getHasBlackJack()) { // player at position i also has BJ -> push
+                        outcomes[i] = Outcomes.PUSH;
+                    } else { // player at i does not have BJ -> loses
+                        outcomes[i] = Outcomes.LOSE;
+                    }
+                } else { // dealer does not have BJ
+                    if (hands.get(i).getHasBlackJack()) { //player has BJ -> win
+                        outcomes[i] = Outcomes.WIN;
+                    }
+                    //else: player does not have BJ -> do nothing and play on
+                }
+            }
+
+        }
     }
 
     /*

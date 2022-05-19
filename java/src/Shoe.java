@@ -69,6 +69,12 @@ public class Shoe {
         return card;
     }
 
+    /*
+    Input: hand to hit
+    Output: none
+
+    Function: Removes top card from shoe and places it on the passed hand
+    */
     public void hit(Hand hand) {
         hand.addCard(getTopCard());
     }

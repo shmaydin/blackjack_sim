@@ -70,19 +70,19 @@ public class Shoe_Test {
         Hand h = new Hand();
 
         assertEquals(51, s.getTopCardFT());
-        assertEquals(0, h.getCardsFT().size());
+        assertEquals(0, h.getCards().size());
 
         s.hit(h);
 
         assertEquals(50, s.getTopCardFT());
-        assertEquals(1, h.getCardsFT().size());
+        assertEquals(1, h.getCards().size());
 
         s.hit(h);
         s.hit(h);
         s.hit(h);
 
         assertEquals(47, s.getTopCardFT());
-        assertEquals(4, h.getCardsFT().size());
+        assertEquals(4, h.getCards().size());
 
         return;
 

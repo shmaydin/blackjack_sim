@@ -1,1 +1,4 @@
 Try simulating where tens are split when the count is favorable
+
+Every advantage counts in an odds game:
+    Control for table position when counting cards - most tables have 4 seats
